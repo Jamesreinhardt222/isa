@@ -1,0 +1,25 @@
+body {
+    background-color: #eff7e1;
+    color: #214151;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.main-img {
+    margin: auto;
+}
+
+.main-img img {
+    display: block;
+    margin: auto;
+
+    border-radius: 50%;
+}
+
+.intro-text {
+    text-align: center;
+    font-size: 200%;
+}
+.extra-info {
+    text-align: center;
+    font-size: 180%;
+}

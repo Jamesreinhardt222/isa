@@ -1,5 +1,5 @@
-localStorage.clear()
 //  Keeps track of what question we're on.
+localStorage.clear()
 let question_num = 1;
 
 
@@ -18,7 +18,8 @@ updateQuestion = (number) => {
 
 // ADD CODE
 addButton = document.getElementById("add")
-addButton.onclick = () => {
+
+add_question = () => {
 
     // Gets the section with the buttons so we can add the newly created items before it.
     user_interface = document.getElementById("interface")
@@ -65,12 +66,17 @@ addButton.onclick = () => {
     updateQuestion(question_num)
     question_num++;
 }
+addButton.onclick = add_question
+
 
 
 // // DELETE CODE
 delete_button = document.getElementById("delete")
 delete_button.onclick = () => {
 
+    if (question_num = 0) {
+        return
+    }
     user_interface = document.getElementById("interface")
 
     removable_targets = document.getElementsByClassName(`dynamically-added-${question_num - 1}`);

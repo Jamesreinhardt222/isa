@@ -19,7 +19,7 @@ addButton.onclick = () => {
     questionInput.classList.add(`dynamically-added-${question_num}`);
     questionInput.classList.add(`question-prompt`);
     questionInput.setAttribute("id", `question_input_${question_num}`)
-    questionInput.type='textarea';
+    questionInput.type = 'textarea';
     user_interface.before(heading);
     user_interface.before(questionInput);
 
@@ -33,7 +33,7 @@ addButton.onclick = () => {
 
         option_input = document.createElement("input");
         option_input.classList.add(`dynamically-added-${question_num}`);
-        option_input.setAttribute("id", `choice${i+1}_q${question_num}`)
+        option_input.setAttribute("id", `choice${i + 1}_q${question_num}`)
 
         option_selector.type = "radio";
         option_input.type = "text";
@@ -68,7 +68,7 @@ delete_button.onclick = () => {
     }
 
     for (let i = 0; i < new_array.length; i++) {
-        
+
         document.body.removeChild(new_array[i]);
     }
     removeQuestion(question_num - 1);
@@ -88,7 +88,7 @@ updateLocalStorage = () => {
 updateQuestion = (number) => {
     localStorage.setItem("number_of_questions", `${number}`)
     question_input = document.getElementById(`question_input_${number}`)
-    localStorage.setItem(`question ${number}`, question_input.value)
+    localStorage.setItem(`question_${number}`, question_input.value)
     localStorage.setItem(`input1_q${number}`, document.getElementById(`choice1_q${number}`).value)
     localStorage.setItem(`input2_q${number}`, document.getElementById(`choice2_q${number}`).value)
     localStorage.setItem(`input3_q${number}`, document.getElementById(`choice3_q${number}`).value)

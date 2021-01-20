@@ -1,5 +1,7 @@
 
 let question_num = 1;
+
+// ADD CODE
 addButton = document.getElementById("add")
 addButton.onclick = () => {
 
@@ -12,9 +14,11 @@ addButton.onclick = () => {
     let questionInput = document.createElement("input");
     questionInput.classList.add(`dynamically-added-${question_num}`);
     questionInput.classList.add(`question-prompt`);
+    questionInput.setAttribute("id", `question_input_${question_num}`)
     questionInput.type='textarea';
     user_interface.before(heading);
     user_interface.before(questionInput);
+
 
     let option_selector;
     let option_input;
@@ -22,11 +26,15 @@ addButton.onclick = () => {
     for (let i = 0; i < 4; i++) {
         option_selector = document.createElement("input");
         option_selector.classList.add(`dynamically-added-${question_num}`);
+
         option_input = document.createElement("input");
         option_input.classList.add(`dynamically-added-${question_num}`);
+        option_input.setAttribute("id", `choice${i+1}_q${question_num}`)
+
         option_selector.type = "radio";
         option_input.type = "text";
         option_selector.name = `q${question_num}`;
+
         break_element = document.createElement("br")
         break_element.classList.add(`dynamically-added-${question_num}`);
 
@@ -35,11 +43,13 @@ addButton.onclick = () => {
         user_interface.before(break_element)
 
     }
+    updateQuestion(question_num)
     question_num++;
 }
 
-delete_button = document.getElementById("delete")
 
+// DELETE CODE
+delete_button = document.getElementById("delete")
 delete_button.onclick = () => {
 
     user_interface = document.getElementById("interface")
@@ -60,10 +70,21 @@ delete_button.onclick = () => {
 }
 
 
-// <h2>Question 1</h2>
-// <input class="question-prompt" type="textarea">
+// UPDATE STORAGE CODE
+updateLocalStorage = () => {
+    for (let i = 1; i <= question_num; i++) {
+        updateQuestion(i)
+    }
+}
 
-// <input type="radio" name="q1" value="a"><input type="text"><br>
-// <input type="radio" name="q1" value="b"><input type="text"><br>
-// <input type="radio" name="q1" value="c"><input type="text"><br>
-// <input type="radio" name="q1" value="a"><input type="text">
+updateQuestion = (number) => {
+    question_input = document.getElementById(`question_input_${number}`)
+    localStorage.setItem(`question ${number}`, question_input.value)
+    localStorage.setItem(`input1_q${number}`, document.getElementById(`choice1_q${number}`).value)
+    localStorage.setItem(`input2_q${number}`, document.getElementById(`choice2_q${number}`).value)
+    localStorage.setItem(`input3_q${number}`, document.getElementById(`choice3_q${number}`).value)
+    localStorage.setItem(`input4_q${number}`, document.getElementById(`choice4_q${number}`).value)
+}
+
+let save_btn = document.getElementById("save")
+save_btn.onclick = updateLocalStorage

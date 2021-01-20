@@ -12,6 +12,23 @@ updateQuestion = (number) => {
     localStorage.setItem(`input2_q${number}`, document.getElementById(`choice2_q${number}`).value)
     localStorage.setItem(`input3_q${number}`, document.getElementById(`choice3_q${number}`).value)
     localStorage.setItem(`input4_q${number}`, document.getElementById(`choice4_q${number}`).value)
+
+
+
+
+    choices = document.getElementsByClassName(`radio${number}`)
+    for (let i = 0; i < choices.length; i++) {
+        try {
+            if (choices[i].checked) {
+
+                connected_input = document.getElementById(`choice${i + 1}_q${number}`)
+                localStorage.setItem(`answer${number}`, connected_input.value)
+            }
+        } catch (e) {
+            console.log("james")
+        }
+    }
+
 }
 
 
@@ -19,7 +36,7 @@ updateQuestion = (number) => {
 // ADD CODE
 addButton = document.getElementById("add")
 
-add_question = () => {
+let add_question = () => {
 
     // Gets the section with the buttons so we can add the newly created items before it.
     user_interface = document.getElementById("interface")
@@ -44,7 +61,9 @@ add_question = () => {
     let break_element;
     for (let i = 0; i < 4; i++) {
         option_selector = document.createElement("input");
-        option_selector.classList.add(`dynamically-added-${question_num}`);
+        option_selector.classList.add(`dynamically-added-${question_num}`)
+        option_selector.classList.add(`radio${question_num}`);
+        option_selector.setAttribute("name", `radio${question_num}`)
 
         option_input = document.createElement("input");
         option_input.classList.add(`dynamically-added-${question_num}`);
@@ -64,21 +83,35 @@ add_question = () => {
     }
     // Update local storage with the newly created fields.
     updateQuestion(question_num)
-    question_num++;
+    question_num = question_num + 1;
+    console.log(question_num)
 }
 addButton.onclick = add_question
 
+
+
+removeQuestion = (number) => {
+    if (number == 0) {
+        return
+    }
+    localStorage.setItem("number_of_questions", `${number - 1}`)
+
+    question_input = document.getElementById(`question_input_${number}`)
+    localStorage.removeItem(`question_${number}`)
+    localStorage.removeItem(`input1_q${number}`)
+    localStorage.removeItem(`input2_q${number}`)
+    localStorage.removeItem(`input3_q${number}`)
+    localStorage.removeItem(`input4_q${number}`)
+}
 
 
 // // DELETE CODE
 delete_button = document.getElementById("delete")
 delete_button.onclick = () => {
 
-    if (question_num = 0) {
+    if (question_num == 0) {
         return
     }
-    user_interface = document.getElementById("interface")
-
     removable_targets = document.getElementsByClassName(`dynamically-added-${question_num - 1}`);
     new_array = []
     for (let i = 0; i < removable_targets.length; i++) {
@@ -104,19 +137,6 @@ updateLocalStorage = () => {
 
 
 
-removeQuestion = (number) => {
-    if (number == 0) {
-        return
-    }
-    localStorage.setItem("number_of_questions", `${number - 1}`)
-
-    question_input = document.getElementById(`question_input_${number}`)
-    localStorage.removeItem(`question_${number}`)
-    localStorage.removeItem(`input1_q${number}`)
-    localStorage.removeItem(`input2_q${number}`)
-    localStorage.removeItem(`input3_q${number}`)
-    localStorage.removeItem(`input4_q${number}`)
-}
 
 let save_btn = document.getElementById("save")
 save_btn.onclick = updateLocalStorage

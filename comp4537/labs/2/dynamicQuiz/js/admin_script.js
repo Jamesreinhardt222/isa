@@ -1,12 +1,16 @@
 
+//  Keeps track of the latest question number that was created.
 let question_num = 1;
 
 // ADD CODE
 addButton = document.getElementById("add")
 addButton.onclick = () => {
 
+    // Gets the section with the buttons so we can add the newly created items before it.
     user_interface = document.getElementById("interface")
 
+
+    // Create new elements for question
     let heading = document.createElement("h1")
     heading.classList.add(`dynamically-added-${question_num}`);
     heading.innerHTML = `Question ${question_num}`;
@@ -19,7 +23,7 @@ addButton.onclick = () => {
     user_interface.before(heading);
     user_interface.before(questionInput);
 
-
+    // Create prompts for the four question answers with for loop.
     let option_selector;
     let option_input;
     let break_element;
@@ -43,6 +47,7 @@ addButton.onclick = () => {
         user_interface.before(break_element)
 
     }
+    // Update local storage with the newly created fields.
     updateQuestion(question_num)
     question_num++;
 }
@@ -71,12 +76,16 @@ delete_button.onclick = () => {
 
 
 // UPDATE STORAGE CODE
+// Update local storage for each question that has been created up until now.
 updateLocalStorage = () => {
+
+    localStorage.setItem("number_of_questions", `${question_num}`)
     for (let i = 1; i <= question_num; i++) {
         updateQuestion(i)
     }
 }
 
+// Update a specific question in local storage
 updateQuestion = (number) => {
     question_input = document.getElementById(`question_input_${number}`)
     localStorage.setItem(`question ${number}`, question_input.value)

@@ -71,6 +71,7 @@ delete_button.onclick = () => {
         
         document.body.removeChild(new_array[i])
     }
+    removeQuestion(question_num - 1)
     question_num--
 }
 
@@ -93,6 +94,15 @@ updateQuestion = (number) => {
     localStorage.setItem(`input2_q${number}`, document.getElementById(`choice2_q${number}`).value)
     localStorage.setItem(`input3_q${number}`, document.getElementById(`choice3_q${number}`).value)
     localStorage.setItem(`input4_q${number}`, document.getElementById(`choice4_q${number}`).value)
+}
+
+removeQuestion = (number) => {
+    question_input = document.getElementById(`question_input_${number}`)
+    localStorage.removeItem(`question ${number}`)
+    localStorage.removeItem(`input1_q${number}`)
+    localStorage.removeItem(`input2_q${number}`)
+    localStorage.removeItem(`input3_q${number}`)
+    localStorage.removeItem(`input4_q${number}`)
 }
 
 let save_btn = document.getElementById("save")

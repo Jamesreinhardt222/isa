@@ -1,5 +1,5 @@
 
-//  Keeps track of the latest question number that was created.
+//  Keeps track of what question we're on.
 let question_num = 1;
 
 // ADD CODE
@@ -69,25 +69,24 @@ delete_button.onclick = () => {
 
     for (let i = 0; i < new_array.length; i++) {
         
-        document.body.removeChild(new_array[i])
+        document.body.removeChild(new_array[i]);
     }
-    removeQuestion(question_num - 1)
-    question_num--
+    removeQuestion(question_num - 1);
+    question_num = question_num - 1;
 }
 
 
 // UPDATE STORAGE CODE
 // Update local storage for each question that has been created up until now.
 updateLocalStorage = () => {
-
-    localStorage.setItem("number_of_questions", `${question_num}`)
-    for (let i = 1; i <= question_num; i++) {
-        updateQuestion(i)
+    for (let i = 1; i < question_num; i++) {
+        updateQuestion(i);
     }
 }
 
 // Update a specific question in local storage
 updateQuestion = (number) => {
+    localStorage.setItem("number_of_questions", `${number}`)
     question_input = document.getElementById(`question_input_${number}`)
     localStorage.setItem(`question ${number}`, question_input.value)
     localStorage.setItem(`input1_q${number}`, document.getElementById(`choice1_q${number}`).value)
@@ -97,6 +96,11 @@ updateQuestion = (number) => {
 }
 
 removeQuestion = (number) => {
+    if (number == 0) {
+        return
+    }
+    localStorage.setItem("number_of_questions", `${number - 1}`)
+
     question_input = document.getElementById(`question_input_${number}`)
     localStorage.removeItem(`question ${number}`)
     localStorage.removeItem(`input1_q${number}`)

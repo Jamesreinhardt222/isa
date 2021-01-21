@@ -45,6 +45,25 @@ create_question = () => {
         }
 
     }
+    let submit = document.createElement("Button")
+    submit.onclick = check_answer
+    submit.innerHTML = "submit"
+    document.appendChild(submit)
 }
 
 create_question()
+
+submit_btn = document.createElement("Button")
+submit_btn.name = "submit"
+document.appendChild(submit_btn)
+
+submit_btn.onclick = () => {
+    for (let i = 0; i < number_of_questions; i++)
+        selected_answers = document.getElementsByName(`q${i}_selector`)
+    for (let j = 0; j < 4; j++) {
+        if (selected_answers[j].checked) {
+            // check answer
+
+        }
+    }
+}

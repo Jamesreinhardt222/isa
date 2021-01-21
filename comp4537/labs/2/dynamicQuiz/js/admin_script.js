@@ -3,8 +3,31 @@ localStorage.clear()
 let question_num = 1;
 
 
+check_if_all_inputs_filled = function (number) {
+    if (document.getElementById(`choice1_q${number}`).value == "" ||
+        document.getElementById(`choice2_q${number}`).value == "" ||
+        document.getElementById(`choice3_q${number}`).value == "" ||
+        document.getElementById(`choice4_q${number}`).value == "" ||
+        document.getElementById(`question_input_${number}`).value == ""
+    ) {
+        return false
+    } else {
+        choices = document.getElementsByClassName(`radio${number}`)
+        console.log(choices)
+        for (let i = 0; i < choices.length; i++) {
+            if (choices[i].checked) {
+                return true
+            }
+        }
+        return false
+    }
+}
+
 // // Update a specific question in local storage
 updateQuestion = (number) => {
+
+
+
     localStorage.setItem("number_of_questions", `${number}`)
     question_input = document.getElementById(`question_input_${number}`)
     localStorage.setItem(`question_${number}`, question_input.value)
@@ -15,21 +38,21 @@ updateQuestion = (number) => {
 
 
 
-
     choices = document.getElementsByClassName(`radio${number}`)
     for (let i = 0; i < choices.length; i++) {
         try {
             if (choices[i].checked) {
 
                 connected_input = document.getElementById(`choice${i + 1}_q${number}`)
-                localStorage.setItem(`answer${number}`, connected_input.value)
+                localStorage.setItem(`answer${number}_text`, connected_input.value)
+                localStorage.setItem(`answer${number}`, `${i + 1}`)
             }
         } catch (e) {
-            console.log("james")
+            console.log("No check box at this time")
         }
     }
-
 }
+
 
 
 
@@ -82,9 +105,8 @@ let add_question = () => {
 
     }
     // Update local storage with the newly created fields.
-    updateQuestion(question_num)
+    // updateQuestion(question_num)
     question_num = question_num + 1;
-    console.log(question_num)
 }
 addButton.onclick = add_question
 
@@ -102,6 +124,8 @@ removeQuestion = (number) => {
     localStorage.removeItem(`input2_q${number}`)
     localStorage.removeItem(`input3_q${number}`)
     localStorage.removeItem(`input4_q${number}`)
+    localStorage.removeItem(`answer${number}`)
+    localStorage.removeItem(`answer${number}_text`)
 }
 
 
@@ -131,12 +155,20 @@ delete_button.onclick = () => {
 // Update local storage for each question that has been created up until now.
 updateLocalStorage = () => {
     for (let i = 1; i < question_num; i++) {
-        updateQuestion(i);
+        all_filled_out = true
+        if (!check_if_all_inputs_filled(i)) {
+            all_filled_out = false
+            alert("Must fill out all fields")
+            return
+        }
+
+    }
+    for (let i = 1; i < question_num; i++) {
+        if (all_filled_out) {
+            updateQuestion(i);
+        }
     }
 }
-
-
-
 
 let save_btn = document.getElementById("save")
 save_btn.onclick = updateLocalStorage

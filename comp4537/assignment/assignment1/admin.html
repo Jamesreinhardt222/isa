@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCIT</title>
+</head>
+
+<body>
+    <button id="save">Save Test</button>
+    <button onclick="window.location = '/'">Back</button>
+
+    <h2>Add Question:</h2>
+    <div>
+        <textarea id="question"></textarea>
+    </div>
+    <select name="number_of_questions" id="number_of_questions" onchange="set_up_inputs()">
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+    </select>
+
+    <div id="question_inputs"></div>
+    <button id="add_q">Add question</button>
+    <div class="demo"></div>
+
+    <h2>All Questions:</h2>
+    <div id="container"></div>
+    <script src="./js/admin_script.js"></script>
+</body>
+
+</html>
